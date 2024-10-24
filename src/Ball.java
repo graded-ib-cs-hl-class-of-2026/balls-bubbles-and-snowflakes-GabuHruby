@@ -76,6 +76,7 @@ class Ball {
     public void draw() {
         s.stroke(borderColor);
         s.fill(fillColor);
+        // x and y are midpoint
         s.circle(x, y, radius * 2);
     }
 
