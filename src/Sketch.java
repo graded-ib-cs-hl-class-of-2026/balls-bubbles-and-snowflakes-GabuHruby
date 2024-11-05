@@ -9,16 +9,19 @@ public class Sketch extends PApplet {
     private Ball ball4;
     private Ball[] balls;
 
+    /** Represents one bubble */
     private Bubble bubble1;
     private Bubble bubble2;
     private Bubble bubble3;
     private Bubble bubble4;
     private Bubble[] bubbles;
 
+    /** Represents one snowflake */
     private Snowflake snowflake1;
     private Snowflake snowflake2;
     private Snowflake snowflake3;
     private Snowflake snowflake4;
+    private Snowflake[] snowflakes;
 
     /**
      * This method can only be used to change the window size. It runs before the
@@ -55,6 +58,7 @@ public class Sketch extends PApplet {
         snowflake2 = new Snowflake(this, 15, 100, 500, -2, 2);
         snowflake3 = new Snowflake(this, 20, 400, 100, 2, 3);
         snowflake4 = new Snowflake(this, 25, 300, 400, -1, 1);
+        snowflakes = new Snowflake[] { snowflake1, snowflake2, snowflake3, snowflake4 };
     }
 
     /**
@@ -138,9 +142,43 @@ public class Sketch extends PApplet {
                 balls[i].setColors(color(random(0, 257), random(0, 257), random(0, 257)), color(0, 0, 0));
                 // change speeds
                 balls[i].setSpeed(random(-4, 4), random(-4, 4));
+            }
+
+            // Make sure balls are not on top of each other
+            Boolean colliding = true;
+
+            while (colliding) {
+                colliding = false;
+                for (int i = 0; i < balls.length; i++) {
+                    balls[i].setPosition(random(0 + balls[i].getRadius(), width - balls[i].getRadius()),
+                            random(0 + balls[i].getRadius(), height - balls[i].getRadius()));
+                }
+                for (int i = 0; i < balls.length; i++) {
+                    for (int k = i + 1; k < balls.length; k++) {
+                        if (balls[i].checkCollision(balls[k])) {
+                            colliding = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // bubbles
+            for (int i = 0; i < bubbles.length; i++) {
+                // change speeds
+                bubbles[i].setSpeed(random(-4, 4), random(-4, 4));
                 // change positions
-                balls[i].setPosition(random(0 + balls[i].getRadius(), width - balls[i].getRadius()),
-                        random(0 + balls[i].getRadius(), height - balls[i].getRadius()));
+                bubbles[i].setPosition(random(0 - bubbles[i].getRadius(), width + bubbles[i].getRadius()),
+                        random(0 - bubbles[i].getRadius(), height + bubbles[i].getRadius()));
+            }
+
+            // snowflakes
+            for (int i = 0; i < snowflakes.length; i++) {
+                // change speeds
+                snowflakes[i].setSpeed(random(-4, 4), random(1, 4));
+                // change positions
+                snowflakes[i].setPosition(random(0 - snowflakes[i].getRadius(), width + snowflakes[i].getRadius()),
+                        random(0 - snowflakes[i].getRadius(), height + snowflakes[i].getRadius()));
             }
         }
     }

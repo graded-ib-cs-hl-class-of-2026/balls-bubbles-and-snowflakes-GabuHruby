@@ -47,6 +47,18 @@ class Snowflake {
         return y;
     }
 
+    /** Change the speed of the snowflake */
+    public void setSpeed(float x, float y) {
+        xSpeed = x;
+        ySpeed = y;
+    }
+
+    /** Change postition of the snowflake */
+    public void setPosition(float xPos, float yPos) {
+        x = xPos;
+        y = yPos;
+    }
+
     /** This function draws the snowflake on the screen */
     public void draw() {
         s.line(x + radius, y, x - radius, y);

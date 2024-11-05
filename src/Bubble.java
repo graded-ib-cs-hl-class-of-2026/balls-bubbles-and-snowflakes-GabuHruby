@@ -39,6 +39,18 @@ class Bubble {
         borderColor = border;
     }
 
+    /** Change the speed of the bubble */
+    public void setSpeed(float x, float y) {
+        xSpeed = x;
+        ySpeed = y;
+    }
+
+    /** Change postition of the snowflake */
+    public void setPosition(float xPos, float yPos) {
+        x = xPos;
+        y = yPos;
+    }
+
     // accessors for the radius, diameter, x, and y values
     public float getRadius() {
         return radius;
