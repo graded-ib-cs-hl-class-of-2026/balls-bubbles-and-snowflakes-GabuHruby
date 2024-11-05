@@ -65,9 +65,66 @@ class Ball {
 
     // Setters that you need go here - by default, only colors
 
+    /** set the color of the ball */
     public void setColors(int fill, int border) {
         borderColor = border;
         fillColor = fill;
+    }
+
+    /** Change the speed of the ball */
+    public void setSpeed(float x, float y) {
+        xSpeed = x;
+        ySpeed = y;
+    }
+
+    /** Change postition */
+    public void setPosition(float xPos, float yPos) {
+        x = xPos;
+        y = yPos;
+    }
+
+    /** This function will check if the ball collides with another ball */
+    public Boolean checkCollision(Ball b) {
+        float bothRadii = radius + b.getRadius();
+
+        float dx = x - b.getX();
+        float dy = y - b.getY();
+
+        float distance = (float) Math.sqrt((dx * dx) + (dy * dy));
+
+        return (distance < bothRadii);
+    }
+
+    /** This function will check if the ball has been clicked */
+    public Boolean checkPressed(float mouseX, float mouseY) {
+
+        float dx = x - mouseX;
+        float dy = y - mouseY;
+
+        float distance = (float) Math.sqrt((dx * dx) + (dy * dy));
+
+        return (distance < radius);
+    }
+
+    /** This function will check if the ball collides with another bubble */
+    public Boolean checkCollision(Bubble b) {
+        float bothRadii = radius + b.getRadius();
+
+        float dx = x - b.getX();
+        float dy = y - b.getY();
+
+        float distance = (float) Math.sqrt((dx * dx) + (dy * dy));
+
+        return (distance < bothRadii);
+    }
+
+    /**
+     * This function will makes the ball "bounce" when it collides by reversing the
+     * x and y spedd
+     */
+    public void collided() {
+        xSpeed = -xSpeed;
+        ySpeed = -ySpeed;
     }
 
     /**
@@ -76,6 +133,7 @@ class Ball {
     public void draw() {
         s.stroke(borderColor);
         s.fill(fillColor);
+        // x and y are midpoint
         s.circle(x, y, radius * 2);
     }
 
